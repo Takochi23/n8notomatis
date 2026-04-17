@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'n8n' => [
+        'webhook_url' => env('N8N_WEBHOOK_URL', 'https://hannipham.app.n8n.cloud/webhook/process-receipt'),
+    ],
+
 ];

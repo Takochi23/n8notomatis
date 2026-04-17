@@ -164,7 +164,7 @@
         </a>
 
         <div class="auth-header">
-            <h3>{{ $mode === 'login' ? 'Selamat Datang Kembali 👋' : 'Daftar Akun Baru ✨' }}</h3>
+            <h3>{{ $mode === 'login' ? 'Selamat Datang Kembali ' : 'Daftar Akun Baru ' }}</h3>
             <p>{{ $mode === 'login' ? 'Masuk ke aplikasi FinKu Anda' : 'Bergabunglah untuk pantau keuangan lebih baik' }}</p>
         </div>
 

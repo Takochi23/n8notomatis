@@ -18,7 +18,7 @@ class ScanStrukController extends Controller
             'receipt_image' => 'required|image|max:10240',
         ]);
 
-        $webhookUrl = env('N8N_WEBHOOK_URL');
+        $webhookUrl = config('services.n8n.webhook_url');
 
         if (!$webhookUrl) {
             return back()->with('error', 'N8N Webhook URL belum dikonfigurasi di .env');
