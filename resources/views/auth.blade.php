@@ -159,7 +159,7 @@
 
     <div class="auth-container">
         <a href="/" class="logo">
-        <img src="/takosaving.png"alt="TakoSaving Logo" style="width: 56px; height: 56px; border-radius: 12px; object-fit: cover;">
+        <img src="{{ asset('takosaving.png') }}"alt="TakoSaving Logo" style="width: 56px; height: 56px; border-radius: 12px; object-fit: cover;">
             TakoSaving
         </a>
 

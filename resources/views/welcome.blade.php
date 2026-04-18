@@ -172,7 +172,7 @@
 
     <nav>
         <a href="/" class="logo">
-            <img src="/takosaving.png" alt="TakoSaving Logo" style="width: 36px; height: 36px; border-radius: 12px; object-fit: cover;">
+        <img src="{{ asset('takosaving.png') }}" alt="TakoSaving Logo" style="width: 36px; height: 36px; border-radius: 12px; object-fit: cover;">
             TakoSaving
         </a>
         <div class="auth-buttons">

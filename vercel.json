@@ -8,6 +8,10 @@
         {
             "src": "/public/**",
             "use": "@vercel/static"
+        },
+        {
+            "src": "/(.*\\.(png|jpg|jpeg|gif|svg|ico))",
+            "dest": "/public/$1"
         }
     ],
     "routes": [
