@@ -8,10 +8,6 @@
         {
             "src": "/public/**",
             "use": "@vercel/static"
-        },
-        {
-            "src": "/(.*\\.(png|jpg|jpeg|gif|svg|ico))",
-            "dest": "/public/$1"
         }
     ],
     "routes": [
@@ -19,6 +15,10 @@
             "src": "/(css|js|images|fonts|build)/(.*)",
             "dest": "/public/$1/$2"
         },
+        {
+            "src": "/(.*\\.(png|jpg|jpeg|gif|svg|ico))",
+            "dest": "/public/$1"
+          },
         {
             "src": "/(.*)",
             "dest": "/api/index.php"
