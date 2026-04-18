@@ -93,7 +93,7 @@
                 <a href="/transaksi" class="btn btn-outline" style="flex-direction: column; height: auto; padding: 24px; border-style: dashed; border-width: 2px;">
                     <i class="fa-solid fa-file-invoice-dollar" style="font-size: 2rem; color: var(--success); margin-bottom: 12px;"></i>
                     <span style="font-size: 1rem; font-weight: 600;">Catat Manual</span>
-                    <span class="text-muted" style="font-size: 0.75rem; text-align: center; margin-top: 4px;">Tambahkan z   secara manual</span>
+                    <span class="text-muted" style="font-size: 0.75rem; text-align: center; margin-top: 4px;">Tambahkan secara manual</span>
                 </a>
             </div>
         </div>

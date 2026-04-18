@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinKu - Kelola Keuangan dengan Cerdas</title>
+    <title>TakoSaving - Kelola Keuangan dengan Cerdas</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
@@ -172,8 +172,8 @@
 
     <nav>
         <a href="/" class="logo">
-            <i class="fa-solid fa-sack-dollar text-primary"></i>
-            FinKu
+            <img src="{{ asset('takosaving.png') }}" alt="TakoSaving Logo" style="width: 56px; height: 56px; border-radius: 12px; object-fit: cover;">
+            TakoSaving
         </a>
         <div class="auth-buttons">
             @if (Route::has('login'))

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinKu - {{ $mode === 'login' ? 'Masuk' : 'Daftar' }}</title>
+    <title>TakoSaving - {{ $mode === 'login' ? 'Masuk' : 'Daftar' }}</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -159,13 +159,13 @@
 
     <div class="auth-container">
         <a href="/" class="logo">
-            <i class="fa-solid fa-sack-dollar" style="color: var(--primary);"></i>
-            FinKu
+            <img src="{{ asset('takosaving.png') }}" alt="TakoSaving Logo" style="width: 56px; height: 56px; border-radius: 12px; object-fit: cover;">
+            TakoSaving
         </a>
 
         <div class="auth-header">
             <h3>{{ $mode === 'login' ? 'Selamat Datang Kembali ' : 'Daftar Akun Baru ' }}</h3>
-            <p>{{ $mode === 'login' ? 'Masuk ke aplikasi FinKu Anda' : 'Bergabunglah untuk pantau keuangan lebih baik' }}</p>
+            <p>{{ $mode === 'login' ? 'Masuk ke TakoSaving Anda' : 'Bergabunglah untuk pantau keuangan lebih baik' }}</p>
         </div>
 
         <form action="{{ route('dashboard') }}" method="GET" id="loginForm">
@@ -220,7 +220,7 @@
                 const email = document.getElementById('email').value;
                 const name = email.split('@')[0];
                 const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
-                localStorage.setItem('finku_user', capitalizedName);
+                localStorage.setItem('takosaving_user', capitalizedName);
             });
         }
     </script>

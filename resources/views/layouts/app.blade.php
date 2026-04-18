@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'FinKu') - Aplikasi Keuangan</title>
+    <title>@yield('title', 'TakoSaving') - Aplikasi Keuangan</title>
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,8 +28,8 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="/dashboard" class="sidebar-logo">
-                    <i class="fa-solid fa-coins logo-icon"></i>
-                    FinKu
+                    <img src="{{ asset('takosaving.png') }}" alt="TakoSaving Logo" style="width: 46px; height: 40px; border-radius: 8px; object-fit: cover;">
+                    TakoSaving
                 </a>
             </div>
             
@@ -117,7 +117,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const storedName = localStorage.getItem('finku_user');
+            const storedName = localStorage.getItem('takosaving_user');
             if (storedName) {
                 const nameEl = document.getElementById('sidebar-name');
                 const avatarEl = document.getElementById('sidebar-avatar');
