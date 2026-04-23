@@ -109,7 +109,11 @@
         try {
             const resp = await fetch(API_URL);
             if(resp.ok) {
-                const data = await resp.json();
+                let data = await resp.json();
+                
+                // Filter by current user
+                const currentUserId = getUserId();
+                data = data.filter(tx => tx.user_id === currentUserId);
                 
                 // Sort by relative recent
                 data.sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));

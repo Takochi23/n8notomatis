@@ -160,7 +160,10 @@
             const response = await fetch(API_URL);
             if (!response.ok) throw new Error('Gagal mengambil data dari API');
             
-            transactionsData = await response.json();
+            let allData = await response.json();
+            // Filter by current user
+            const currentUserId = getUserId();
+            transactionsData = allData.filter(tx => tx.user_id === currentUserId);
             // Urutkan berdasarkan tanggal terbaru
             transactionsData.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
             
@@ -258,7 +261,8 @@
             jumlah: parseInt(document.getElementById('jumlah').value),
             tipe: document.getElementById('tipe').value,
             tanggal: document.getElementById('tanggal').value,
-            kategori: document.getElementById('kategori').value
+            kategori: document.getElementById('kategori').value,
+            user_id: getUserId()
         };
 
         try {

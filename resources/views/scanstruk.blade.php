@@ -91,9 +91,10 @@
 
                 <!-- Action Buttons -->
                 <div class="flex flex-col gap-4 mt-6">
-                    <form method="POST" action="/scanstruk/save" style="width: 100%;">
+                    <form method="POST" action="/scanstruk/save" style="width: 100%;" id="scanSaveForm">
                         @csrf
                         <input type="hidden" name="scan_data" value="{{ json_encode($data) }}">
+                        <input type="hidden" name="user_id" id="scan_user_id" value="">
                         <button type="submit" class="btn btn-success btn-block" style="padding: 12px; font-weight: 600; background-color: var(--success); color: white; border-radius: var(--radius-md);">
                             <i class="fa-solid fa-plus-circle"></i> Simpan ke Transaksi
                         </button>
@@ -102,6 +103,13 @@
                         <i class="fa-solid fa-rotate-right"></i> Scan Struk Baru
                     </a>
                 </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const uidInput = document.getElementById('scan_user_id');
+                        if (uidInput) uidInput.value = getUserId();
+                    });
+                </script>
 
             @else
                 <div class="flex flex-col items-center justify-center text-center" style="padding: 40px 20px; min-height: 300px; color: var(--text-muted);">

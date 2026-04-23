@@ -221,6 +221,7 @@
                 const name = email.split('@')[0];
                 const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
                 localStorage.setItem('takosaving_user', capitalizedName);
+                localStorage.setItem('takosaving_user_id', email.toLowerCase().trim());
             });
         }
     </script>

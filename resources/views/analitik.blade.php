@@ -79,7 +79,10 @@
         try {
             const resp = await fetch(API_URL);
             if(resp.ok) {
-                txData = await resp.json();
+                let allData = await resp.json();
+                // Filter by current user
+                const currentUserId = getUserId();
+                txData = allData.filter(tx => tx.user_id === currentUserId);
                 processData();
             }
         } catch (e) {

@@ -80,6 +80,7 @@ class ScanStrukController extends Controller
     public function save(Request $request)
     {
         $data = $request->input('scan_data');
+        $userId = $request->input('user_id', '');
         if (!$data) {
             return back()->with('error', 'Tidak ada data untuk disimpan.');
         }
@@ -107,7 +108,8 @@ class ScanStrukController extends Controller
                         'jumlah' => (float)$itemPrice,
                         'tipe' => 'pengeluaran',
                         'tanggal' => $tanggal,
-                        'kategori' => $itemCat
+                        'kategori' => $itemCat,
+                        'user_id' => $userId
                     ]);
                 }
             } else {
@@ -117,7 +119,8 @@ class ScanStrukController extends Controller
                     'jumlah' => (float)$total,
                     'tipe' => 'pengeluaran',
                     'tanggal' => $tanggal,
-                    'kategori' => $decodedData['category'] ?? 'belanja'
+                    'kategori' => $decodedData['category'] ?? 'belanja',
+                    'user_id' => $userId
                 ]);
             }
 
