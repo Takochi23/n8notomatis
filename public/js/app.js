@@ -10,18 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDashboardData();
 });
 
-const MOCK_API_URL = 'https://69ae8872c8b37f499835c282.mockapi.io/api/v1/transactions';
+const API_URL = '/api/transactions';
 
 async function loadDashboardData() {
     try {
-        const response = await fetch(MOCK_API_URL);
+        const response = await fetch(API_URL);
         if (response.ok) {
             const transactions = await response.json();
             calculateDashboardData(transactions);
             initCharts();
         }
     } catch (err) {
-        console.error("Gagal mengambil data dari MockAPI", err);
+        console.error("Gagal mengambil data dari database", err);
     }
 }
 

@@ -213,8 +213,8 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="color: #10b981;"><i class="fa-solid fa-cloud"></i></div>
-                <h3>Sinkronisasi MockAPI</h3>
-                <p>Data tersimpan dengan aman menggunakan MockAPI. Tidak ada lagi kekhawatiran data hilang saat berganti browser atau perangkat lokal.</p>
+                <h3>Sinkronisasi Cloud Database</h3>
+                <p>Data tersimpan dengan aman di cloud database Supabase. Tidak ada lagi kekhawatiran data hilang saat berganti browser atau perangkat lokal.</p>
             </div>
         </section>
     </main>

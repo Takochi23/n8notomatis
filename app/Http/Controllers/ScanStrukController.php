@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -69,7 +70,7 @@ class ScanStrukController extends Controller
             return back()->with([
                 'success' => 'Struk berhasil diproses!',
                 'scan_result' => $receiptData,
-                'raw_result' => $result // Kirim data mentah untuk dicek jika butuh
+                'raw_result' => $result
             ]);
 
         } catch (\Exception $e) {
@@ -90,7 +91,6 @@ class ScanStrukController extends Controller
             return back()->with('error', 'Data tidak valid.');
         }
 
-        $mockApiUrl = 'https://69ae8872c8b37f499835c282.mockapi.io/api/v1/transactions';
         $tanggal = $decodedData['tanggal'] ?? date('Y-m-d');
         if ($tanggal == 'tidak terbaca') {
             $tanggal = date('Y-m-d');
@@ -102,31 +102,31 @@ class ScanStrukController extends Controller
                     $itemName = $item['nama'] ?? $item['name'] ?? 'Item Struk';
                     $itemPrice = $item['harga'] ?? $item['price'] ?? 0;
                     $itemCat = $item['kategori'] ?? $decodedData['category'] ?? 'belanja';
-                    
-                    Http::withoutVerifying()->post($mockApiUrl, [
+
+                    Transaction::create([
                         'judul' => $itemName,
                         'jumlah' => (float)$itemPrice,
                         'tipe' => 'pengeluaran',
                         'tanggal' => $tanggal,
                         'kategori' => $itemCat,
-                        'user_id' => $userId
+                        'user_id' => $userId,
                     ]);
                 }
             } else {
                 $total = $decodedData['total'] ?? 0;
-                Http::withoutVerifying()->post($mockApiUrl, [
+                Transaction::create([
                     'judul' => $decodedData['store_name'] ?? 'Struk Belanja',
                     'jumlah' => (float)$total,
                     'tipe' => 'pengeluaran',
                     'tanggal' => $tanggal,
                     'kategori' => $decodedData['category'] ?? 'belanja',
-                    'user_id' => $userId
+                    'user_id' => $userId,
                 ]);
             }
 
             return redirect('/transaksi')->with('success', 'Transaksi berhasil disimpan dari struk!');
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal menyimpan ke MockAPI: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menyimpan ke database: ' . $e->getMessage());
         }
     }
 }

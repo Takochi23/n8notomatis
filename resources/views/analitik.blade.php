@@ -60,7 +60,6 @@
 
 @section('scripts')
 <script>
-    const API_URL = 'https://69ae8872c8b37f499835c282.mockapi.io/api/v1/transactions';
     let txData = [];
     let catChart;
     let trChart;
@@ -77,12 +76,10 @@
 
     document.addEventListener('DOMContentLoaded', async () => {
         try {
-            const resp = await fetch(API_URL);
+            const currentUserId = getUserId();
+            const resp = await fetch(`/api/transactions?user_id=${encodeURIComponent(currentUserId)}`);
             if(resp.ok) {
-                let allData = await resp.json();
-                // Filter by current user
-                const currentUserId = getUserId();
-                txData = allData.filter(tx => tx.user_id === currentUserId);
+                txData = await resp.json();
                 processData();
             }
         } catch (e) {

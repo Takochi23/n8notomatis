@@ -112,7 +112,7 @@
 
 @section('scripts')
 <script>
-    const API_URL = 'https://69ae8872c8b37f499835c282.mockapi.io/api/v1/transactions';
+    const CSRF_TOKEN = '{{ csrf_token() }}';
     let transactionsData = [];
 
     const DOM = {
@@ -157,13 +157,11 @@
 
     async function loadTransactions() {
         try {
-            const response = await fetch(API_URL);
+            const currentUserId = getUserId();
+            const response = await fetch(`/api/transactions?user_id=${encodeURIComponent(currentUserId)}`);
             if (!response.ok) throw new Error('Gagal mengambil data dari API');
             
-            let allData = await response.json();
-            // Filter by current user
-            const currentUserId = getUserId();
-            transactionsData = allData.filter(tx => tx.user_id === currentUserId);
+            transactionsData = await response.json();
             // Urutkan berdasarkan tanggal terbaru
             transactionsData.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
             
@@ -175,7 +173,7 @@
                 <tr>
                     <td colspan="4" style="text-align: center; padding: 40px; color: var(--danger);">
                         <i class="fa-solid fa-circle-exclamation mb-4" style="font-size: 2rem;"></i><br>
-                        Gagal memuat data dari MockAPI.<br>Pastikan koneksi internet stabil.
+                        Gagal memuat data dari database.<br>Pastikan koneksi internet stabil.
                     </td>
                 </tr>`;
         }
@@ -266,9 +264,12 @@
         };
 
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch('/api/transactions', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
                 body: JSON.stringify(newData)
             });
 
@@ -289,7 +290,7 @@
             
         } catch (error) {
             console.error('Save Error:', error);
-            alert('Gagal menyimpan otomatis ke MockAPI. Cek console.');
+            alert('Gagal menyimpan transaksi. Cek console.');
         } finally {
             // Restore button
             DOM.btnSimpan.innerHTML = originalBtnText;
@@ -301,8 +302,11 @@
         if (!confirm('Anda yakin ingin menghapus transaksi ini?')) return;
 
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: 'DELETE'
+            const response = await fetch(`/api/transactions/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                }
             });
 
             if (!response.ok) throw new Error('Gagal menghapus');
@@ -313,7 +317,7 @@
 
         } catch (error) {
             console.error('Delete error:', error);
-            alert('Gagal menghapus transaksi dari MockAPI.');
+            alert('Gagal menghapus transaksi.');
         }
     }
 </script>

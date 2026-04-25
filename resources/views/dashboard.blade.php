@@ -103,17 +103,12 @@
 
 @section('scripts')
 <script>
-    const API_URL = 'https://69ae8872c8b37f499835c282.mockapi.io/api/v1/transactions';
-    
     document.addEventListener('DOMContentLoaded', async () => {
         try {
-            const resp = await fetch(API_URL);
+            const currentUserId = getUserId();
+            const resp = await fetch(`/api/transactions?user_id=${encodeURIComponent(currentUserId)}`);
             if(resp.ok) {
                 let data = await resp.json();
-                
-                // Filter by current user
-                const currentUserId = getUserId();
-                data = data.filter(tx => tx.user_id === currentUserId);
                 
                 // Sort by relative recent
                 data.sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
@@ -143,7 +138,7 @@
             document.getElementById('recent-transactions').innerHTML = `
                 <tr>
                     <td colspan="4" style="text-align: center; padding: 20px; color: var(--danger);">
-                        Gagal memuat data dari MockAPI.
+                        Gagal memuat data dari database.
                     </td>
                 </tr>`;
         }
