@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
-     * GET /api/transactions?user_id=xxx
+     * GET /ajax/transactions?user_id=xxx
      */
     public function index(Request $request)
     {
@@ -24,7 +24,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * POST /api/transactions
+     * POST /ajax/transactions
      */
     public function store(Request $request)
     {
@@ -43,7 +43,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * DELETE /api/transactions/{id}
+     * DELETE /ajax/transactions/{id}
      */
     public function destroy($id)
     {

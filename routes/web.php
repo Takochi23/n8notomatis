@@ -24,6 +24,6 @@ Route::post('/scanstruk/scan', [ScanStrukController::class, 'scan'])->name('scan
 Route::post('/scanstruk/save', [ScanStrukController::class, 'save'])->name('scanstruk.save');
 
 // API Routes for Transactions (Supabase PostgreSQL)
-Route::get('/api/transactions', [TransactionController::class, 'index']);
-Route::post('/api/transactions', [TransactionController::class, 'store']);
-Route::delete('/api/transactions/{id}', [TransactionController::class, 'destroy']);
+Route::get('/ajax/transactions', [TransactionController::class, 'index']);
+Route::post('/ajax/transactions', [TransactionController::class, 'store']);
+Route::delete('/ajax/transactions/{id}', [TransactionController::class, 'destroy']);

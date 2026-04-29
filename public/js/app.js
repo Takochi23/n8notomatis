@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDashboardData();
 });
 
-const API_URL = '/api/transactions';
+const API_URL = '/ajax/transactions';
 
 async function loadDashboardData() {
     try {

@@ -106,7 +106,7 @@
     document.addEventListener('DOMContentLoaded', async () => {
         try {
             const currentUserId = getUserId();
-            const resp = await fetch(`/api/transactions?user_id=${encodeURIComponent(currentUserId)}`);
+            const resp = await fetch(`/ajax/transactions?user_id=${encodeURIComponent(currentUserId)}`);
             if(resp.ok) {
                 let data = await resp.json();
                 

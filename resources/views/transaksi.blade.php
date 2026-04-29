@@ -158,7 +158,7 @@
     async function loadTransactions() {
         try {
             const currentUserId = getUserId();
-            const response = await fetch(`/api/transactions?user_id=${encodeURIComponent(currentUserId)}`);
+            const response = await fetch(`/ajax/transactions?user_id=${encodeURIComponent(currentUserId)}`);
             if (!response.ok) throw new Error('Gagal mengambil data dari API');
             
             transactionsData = await response.json();
@@ -264,7 +264,7 @@
         };
 
         try {
-            const response = await fetch('/api/transactions', {
+            const response = await fetch('/ajax/transactions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -302,7 +302,7 @@
         if (!confirm('Anda yakin ingin menghapus transaksi ini?')) return;
 
         try {
-            const response = await fetch(`/api/transactions/${id}`, {
+            const response = await fetch(`/ajax/transactions/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': CSRF_TOKEN
