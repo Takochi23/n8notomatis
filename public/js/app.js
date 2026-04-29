@@ -1,8 +1,3 @@
-/**
- * FinKu - Dashboard JavaScript
- * Handles sidebar toggle, theme switching, and chart rendering.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     initSidebar();
     initThemeToggle();

@@ -559,3 +559,10 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(4px);
     z-index: 45;
 }
+
+.sidebar-logo-img {
+    width: 46px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+}

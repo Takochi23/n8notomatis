@@ -28,7 +28,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="/dashboard" class="sidebar-logo">
-                <img src="{{ asset('takosaving.png') }}" alt="TakoSaving Logo" style="width: 46px; height: 40px; border-radius: 8px; object-fit: cover;">
+                <img src="{{ asset('takosaving.png') }}" alt="TakoSaving Logo" class="sidebar-logo-img">
                     TakoSaving
                 </a>
             </div>
