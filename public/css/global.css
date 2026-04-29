@@ -559,6 +559,29 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(4px);
     z-index: 45;
 }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.mr-2 { margin-right: 8px; }
+.mb-2 { margin-bottom: 8px; }
+.mt-2 { margin-top: 8px; }
+.mt-1 { margin-top: 4px; }
+
+/* Icon Colors */
+.icon-warning { background-color: var(--warning-bg) !important; color: var(--warning) !important; }
+.icon-success { background-color: var(--success-bg) !important; color: var(--success) !important; }
+.icon-danger { background-color: var(--danger-bg) !important; color: var(--danger) !important; }
+.icon-primary { background-color: var(--primary-light) !important; color: var(--primary) !important; }
+
+/* Common UI Elements */
+.loading-state {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+}
 
 .sidebar-logo-img {
     width: 46px;

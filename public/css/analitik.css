@@ -1,0 +1,74 @@
+/* Analytics Specific Styles */
+
+.analytics-hero {
+    background-image: linear-gradient(135deg, #111111ff 0%, #222 100%);
+    color: white;
+}
+
+.analytics-hero-body {
+    padding: 32px 24px;
+}
+
+.border-r-light {
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.analytics-stat-label {
+    color: #999;
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+}
+
+.analytics-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.analytics-stat-value-large {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: white;
+}
+
+.chart-container {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    background: var(--bg-hover);
+}
+
+.legend-color-dot {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-label {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.legend-value-container {
+    text-align: right;
+}
+
+.legend-percentage {
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.legend-amount {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}

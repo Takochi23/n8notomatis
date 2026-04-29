@@ -1,0 +1,115 @@
+/* Scan Struk Specific Styles */
+
+.upload-zone {
+    border: 2px dashed var(--border-strong);
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-main);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.upload-title {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.upload-hint {
+    font-size: 0.75rem;
+    margin-bottom: 16px;
+}
+
+.file-input-custom {
+    max-width: 300px;
+    margin: 0 auto;
+    background: white;
+}
+
+.btn-large {
+    padding: 14px;
+    font-size: 1rem;
+}
+
+.details-summary {
+    cursor: pointer;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    font-size: 0.75rem;
+}
+
+.debug-pre {
+    background: var(--bg-hover);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    margin-top: 8px;
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+}
+
+.results-header {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.store-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.total-amount {
+    color: var(--danger);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 4px;
+}
+
+.items-title {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.btn-save-scan {
+    padding: 12px;
+    font-weight: 600;
+}
+
+.btn-new-scan {
+    text-align: center;
+    display: block;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.empty-results-container {
+    padding: 40px 20px;
+    min-height: 300px;
+    color: var(--text-muted);
+}
+
+.empty-icon-circle {
+    width: 80px;
+    height: 80px;
+    background-color: var(--bg-hover);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.empty-title {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}

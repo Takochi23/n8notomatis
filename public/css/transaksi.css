@@ -1,0 +1,83 @@
+/* Transactions Specific Styles */
+
+.relative {
+    position: relative;
+}
+
+.input-prefix {
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.pl-12 {
+    padding-left: 48px;
+}
+
+.loading-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.error-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--danger);
+}
+
+.error-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+
+.empty-icon-circle-lg {
+    background: var(--bg-hover);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.empty-icon {
+    font-size: 1.5rem;
+}
+
+.tx-icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.tx-title {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.tx-amount {
+    font-weight: 700;
+}
+
+.btn-delete-tx {
+    padding: 6px 12px;
+    border-color: transparent;
+}
+
+.btn-delete-tx:hover {
+    background-color: var(--danger-bg);
+}
