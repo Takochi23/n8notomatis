@@ -48,3 +48,28 @@
     color: var(--text-muted);
     margin-top: 4px;
 }
+
+/* Spending Status */
+.spending-status-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 4px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.status-boros {
+    color: var(--danger);
+    background: var(--danger-bg);
+}
+
+.status-hemat {
+    color: var(--success);
+    background: var(--success-bg);
+}
+
+.status-idle {
+    color: var(--text-muted);
+    background: var(--bg-hover);
+}

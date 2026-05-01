@@ -43,13 +43,14 @@
     </div>
 
     <!-- Stat 4 -->
-    <div class="card stat-card">
-        <div class="stat-icon icon-warning">
-            <i class="fa-solid fa-piggy-bank"></i>
+    <div class="card stat-card" id="spending-status-card">
+        <div class="stat-icon icon-warning" id="spending-status-icon">
+            <i class="fa-solid fa-fire" id="spending-status-fa"></i>
         </div>
         <div class="stat-info">
-            <div class="stat-label">Tabungan</div>
-            <div class="stat-value" id="total-tabungan">Rp 0</div>
+            <div class="stat-label">Pengeluaran Hari Ini</div>
+            <div class="stat-value" id="total-hari-ini">Rp 0</div>
+            <div class="spending-status-label" id="spending-status-label">💤 Belum ada</div>
         </div>
     </div>
 </div>

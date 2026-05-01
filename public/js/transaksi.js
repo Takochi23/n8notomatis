@@ -45,7 +45,7 @@ function getCategoryIcon(type, category) {
 
 async function loadTransactions() {
     try {
-        if (!typeof getUserId === 'function') return;
+        if (typeof getUserId !== 'function') return;
         const currentUserId = getUserId();
         const response = await fetch(`/ajax/transactions?user_id=${encodeURIComponent(currentUserId)}`);
         if (!response.ok) throw new Error('Gagal mengambil data dari API');
@@ -142,7 +142,7 @@ function renderTransactions() {
 
 async function handleAddTransaction(e) {
     e.preventDefault();
-    if (!typeof CSRF_TOKEN !== 'undefined') return;
+    if (typeof CSRF_TOKEN === 'undefined') return;
     
     // Simpan state asli tombol
     const originalBtnText = DOM.btnSimpan.innerHTML;
@@ -195,10 +195,10 @@ async function handleAddTransaction(e) {
 
 async function deleteTransaction(id) {
     if (!confirm('Anda yakin ingin menghapus transaksi ini?')) return;
-    if (!typeof CSRF_TOKEN !== 'undefined') return;
+    if (typeof CSRF_TOKEN === 'undefined') return;
 
     try {
-        const response = await fetch(`/ajax/transactions/${id}`, {
+        const response = await fetch(`/ajax/transactions/${id}?user_id=${encodeURIComponent(getUserId())}`, {
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': CSRF_TOKEN

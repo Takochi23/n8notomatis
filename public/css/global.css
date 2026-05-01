@@ -575,6 +575,7 @@ h1, h2, h3, h4, h5, h6 {
 .icon-success { background-color: var(--success-bg) !important; color: var(--success) !important; }
 .icon-danger { background-color: var(--danger-bg) !important; color: var(--danger) !important; }
 .icon-primary { background-color: var(--primary-light) !important; color: var(--primary) !important; }
+.icon-muted { background-color: var(--bg-hover) !important; color: var(--text-muted) !important; }
 
 /* Common UI Elements */
 .loading-state {

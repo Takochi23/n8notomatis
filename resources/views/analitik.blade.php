@@ -11,6 +11,11 @@
 <div class="grid grid-cols-1 gap-6 mb-6">
     <div class="card analytics-hero">
         <div class="card-body analytics-hero-body">
+            <div class="time-filter-tabs">
+                <button class="time-filter-btn" data-days="1">Hari Ini</button>
+                <button class="time-filter-btn active" data-days="7">7 Hari</button>
+                <button class="time-filter-btn" data-days="30">30 Hari</button>
+            </div>
             <div class="grid grid-cols-3 gap-6 text-center">
                 <div class="border-r-light">
                     <p class="analytics-stat-label">Sisa Uang</p>

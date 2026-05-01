@@ -5,25 +5,70 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(resp.ok) {
             let data = await resp.json();
             
-            // Sort by relative recent
+            // Sort by recent
             data.sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
 
             let totalIn = 0;
             let totalOut = 0;
 
+            // Today's date (start of day)
+            const now = new Date();
+            const todayStr = now.toISOString().substring(0, 10);
+            let todayExpense = 0;
+
+            // 30-day window for average calculation
+            const thirtyDaysAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30);
+            let last30Expense = 0;
+
             data.forEach(tx => {
                 const amt = parseFloat(tx.jumlah);
-                if(tx.tipe === 'pengeluaran') totalOut += amt;
-                else totalIn += amt;
+                const txDate = new Date(tx.tanggal);
+                const txDateStr = tx.tanggal.substring(0, 10);
+
+                if(tx.tipe === 'pengeluaran') {
+                    totalOut += amt;
+                    if (txDateStr === todayStr) todayExpense += amt;
+                    if (txDate >= thirtyDaysAgo) last30Expense += amt;
+                } else {
+                    totalIn += amt;
+                }
             });
 
             const saldo = totalIn - totalOut;
-            const tabungan = saldo > 0 ? saldo * 0.2 : 0; // Asumsi 20% simpanan
 
             document.getElementById('total-saldo').innerText = formatCurrency(saldo);
             document.getElementById('total-pemasukan').innerText = formatCurrency(totalIn);
             document.getElementById('total-pengeluaran').innerText = formatCurrency(totalOut);
-            document.getElementById('total-tabungan').innerText = formatCurrency(tabungan);
+
+            // Spending status today
+            const todayEl = document.getElementById('total-hari-ini');
+            const statusLabel = document.getElementById('spending-status-label');
+            const statusIcon = document.getElementById('spending-status-icon');
+            const statusFa = document.getElementById('spending-status-fa');
+
+            if (todayEl) todayEl.innerText = formatCurrency(todayExpense);
+
+            // Calculate daily average (30 days)
+            const dailyAvg = last30Expense / 30;
+
+            if (statusLabel && statusIcon && statusFa) {
+                if (todayExpense === 0) {
+                    statusLabel.innerText = 'Belum ada pengeluaran';
+                    statusLabel.className = 'spending-status-label status-idle';
+                    statusIcon.className = 'stat-icon icon-muted';
+                    statusFa.className = 'fa-solid fa-moon';
+                } else if (todayExpense > dailyAvg && dailyAvg > 0) {
+                    statusLabel.innerText = 'Boros Banget Broooo!';
+                    statusLabel.className = 'spending-status-label status-boros';
+                    statusIcon.className = 'stat-icon icon-danger';
+                    statusFa.className = 'fa-solid fa-fire';
+                } else {
+                    statusLabel.innerText = 'Hemat';
+                    statusLabel.className = 'spending-status-label status-hemat';
+                    statusIcon.className = 'stat-icon icon-success';
+                    statusFa.className = 'fa-solid fa-leaf';
+                }
+            }
 
             // Render latest 5 tx
             renderRecentTable(data.slice(0, 5));

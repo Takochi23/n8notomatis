@@ -42,12 +42,13 @@ class TransactionController extends Controller
         return response()->json($transaction, 201);
     }
 
-    /**
-     * DELETE /ajax/transactions/{id}
-     */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $transaction = Transaction::findOrFail($id);
+        if ($request->has('user_id') && $transaction->user_id !== $request->user_id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $transaction->delete();
 
         return response()->json(['message' => 'Deleted'], 200);

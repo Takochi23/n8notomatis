@@ -1,6 +1,7 @@
 let txData = [];
 let catChart;
 let trChart;
+let currentDays = 7; // Default filter
 
 const COLORS = [
     '#000000ff', // Black
@@ -23,6 +24,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (e) {
         console.error('Error fetching data for analytics:', e);
     }
+
+    // Time filter tab click handlers
+    document.querySelectorAll('.time-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.time-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentDays = parseInt(btn.dataset.days);
+            processData();
+        });
+    });
 });
 
 function formatCurrency(amount) {
@@ -31,31 +42,46 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
+function getFilteredData() {
+    const now = new Date();
+    // Start of today
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    let startDate;
+    if (currentDays === 1) {
+        startDate = today;
+    } else {
+        startDate = new Date(today);
+        startDate.setDate(startDate.getDate() - (currentDays - 1));
+    }
+
+    return txData.filter(tx => {
+        const txDate = new Date(tx.tanggal);
+        return txDate >= startDate && txDate <= now;
+    });
+}
+
 function processData() {
+    const filtered = getFilteredData();
+
     let income = 0;
     let expense = 0;
     const categoryMap = {};
-    
-    // Data untrend chart
     const trendMap = {};
 
-    txData.forEach(tx => {
+    filtered.forEach(tx => {
         const amount = parseFloat(tx.jumlah);
         const isExpense = tx.tipe === 'pengeluaran';
-        const dateStr = tx.tanggal.substring(0, 10); // YYYY-MM-DD
+        const dateStr = tx.tanggal.substring(0, 10);
 
-        // Summary
         if (isExpense) {
             expense += amount;
-            
-            // Kategori agregasi (hanya pengeluaran)
             if(!categoryMap[tx.kategori]) categoryMap[tx.kategori] = 0;
             categoryMap[tx.kategori] += amount;
         } else {
             income += amount;
         }
 
-        // Tren harian
         if(!trendMap[dateStr]) trendMap[dateStr] = { income: 0, expense: 0 };
         if(isExpense) {
             trendMap[dateStr].expense += amount;
@@ -81,7 +107,6 @@ function renderCategoryChart(categoryMap, totalExpense) {
     const labels = Object.keys(categoryMap);
     const data = Object.values(categoryMap);
     
-    // Urutkan nilai terbanyak
     const sorted = labels.map((l, i) => ({ label: l, value: data[i] }))
                          .sort((a,b) => b.value - a.value);
 
@@ -90,7 +115,10 @@ function renderCategoryChart(categoryMap, totalExpense) {
     const ctx = canvas.getContext('2d');
     
     if(data.length === 0) {
-        // Placeholder empty
+        if (catChart) catChart.destroy();
+        catChart = null;
+        const legendEl = document.getElementById('category-legend');
+        if (legendEl) legendEl.innerHTML = '<p class="text-center text-muted" style="padding: 20px;">Belum ada data pengeluaran di periode ini.</p>';
     } else {
         if (catChart) catChart.destroy();
         catChart = new Chart(ctx, {
@@ -109,12 +137,11 @@ function renderCategoryChart(categoryMap, totalExpense) {
                 maintainAspectRatio: false,
                 cutout: '75%',
                 plugins: {
-                    legend: { display: false } // Custom legend
+                    legend: { display: false }
                 }
             }
         });
 
-        // Build custom legend
         let legHtml = '<div class="grid grid-cols-2 gap-4">';
         sorted.forEach((item, i) => {
             const perc = totalExpense > 0 ? ((item.value / totalExpense) * 100).toFixed(1) : 0;
@@ -138,14 +165,30 @@ function renderCategoryChart(categoryMap, totalExpense) {
 }
 
 function renderTrendChart(trendMap) {
-    const dates = Object.keys(trendMap).sort((a, b) => new Date(a) - new Date(b));
-    
-    const labels = dates.map(d => {
-        const dt = new Date(d);
+    // Fill in missing dates for the selected period
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let startDate;
+    if (currentDays === 1) {
+        startDate = new Date(today);
+    } else {
+        startDate = new Date(today);
+        startDate.setDate(startDate.getDate() - (currentDays - 1));
+    }
+
+    const allDates = [];
+    const d = new Date(startDate);
+    while (d <= today) {
+        allDates.push(d.toISOString().substring(0, 10));
+        d.setDate(d.getDate() + 1);
+    }
+
+    const labels = allDates.map(dateStr => {
+        const dt = new Date(dateStr);
         return dt.toLocaleDateString('id-ID', {day: 'numeric', month:'short'});
     });
-    const incomeData = dates.map(d => trendMap[d].income);
-    const expenseData = dates.map(d => trendMap[d].expense);
+    const incomeData = allDates.map(d => (trendMap[d] ? trendMap[d].income : 0));
+    const expenseData = allDates.map(d => (trendMap[d] ? trendMap[d].expense : 0));
 
     const canvas = document.getElementById('trendChart');
     if (!canvas) return;
@@ -160,13 +203,13 @@ function renderTrendChart(trendMap) {
                 {
                     label: 'Pemasukan',
                     data: incomeData,
-                    backgroundColor: 'rgba(16, 185, 129, 0.8)', // Success green
+                    backgroundColor: 'rgba(16, 185, 129, 0.8)',
                     borderRadius: 4
                 },
                 {
                     label: 'Pengeluaran',
                     data: expenseData,
-                    backgroundColor: '#000000', // Black for expense
+                    backgroundColor: '#000000',
                     borderRadius: 4
                 }
             ]
