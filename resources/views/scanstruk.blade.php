@@ -54,12 +54,12 @@
                 <!-- Store Info -->
                 <div class="flex items-center justify-between mb-6 results-header">
                     <div>
-                        <h3 class="store-name">{{ $data['store_name'] ?? 'Toko Tidak Diketahui' }}</h3>
-                        <span class="badge badge-primary">{{ ucfirst($data['category'] ?? 'Lainnya') }}</span>
+                        <h3 class="store-name">{{ $data['store_name'] ?? $data['nama_toko'] ?? 'Toko Tidak Diketahui' }}</h3>
+                        <span class="badge badge-primary">{{ ucfirst($data['category'] ?? $data['kategori'] ?? 'Lainnya') }}</span>
                     </div>
                     <div class="text-right">
                         <span class="text-muted text-sm">Total Akhir</span>
-                        <h3 class="total-amount">Rp {{ number_format($data['total'] ?? 0, 0, ',', '.') }}</h3>
+                        <h3 class="total-amount">Rp {{ number_format($data['total'] ?? $data['total_belanja'] ?? 0, 0, ',', '.') }}</h3>
                     </div>
                 </div>
 
@@ -78,9 +78,9 @@
                             <tbody>
                                 @foreach($data['items'] as $item)
                                 <tr>
-                                    <td class="font-medium">{{ $item['nama'] ?? $item['name'] ?? 'Item' }}</td>
-                                    <td class="text-center text-muted">{{ $item['qty'] ?? 1 }}x</td>
-                                    <td class="text-right" style="color: var(--text-main);">Rp {{ number_format((float)($item['harga'] ?? $item['price'] ?? 0), 0, ',', '.') }}</td>
+                                    <td class="font-medium">{{ $item['nama'] ?? $item['nama_produk'] ?? $item['name'] ?? 'Item' }}</td>
+                                    <td class="text-center text-muted">{{ $item['qty'] ?? $item['jumlah'] ?? 1 }}x</td>
+                                    <td class="text-right" style="color: var(--text-main);">Rp {{ number_format((float)($item['harga'] ?? $item['total'] ?? $item['harga_satuan'] ?? $item['price'] ?? 0), 0, ',', '.') }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -45,11 +45,19 @@ class ScanStrukController extends Controller
 
             $result = $response->json();
 
-            if (!$result || !isset($result['receipt_data'])) {
+            if (!$result) {
                 return back()->with('error', 'Response dari n8n tidak valid atau kosong.');
             }
 
-            $receiptData = $result['receipt_data'];
+            // Support multiple n8n response formats
+            if (isset($result['receipt_data'])) {
+                $receiptData = $result['receipt_data'];
+            } elseif (isset($result['data_keuangan'])) {
+                $receiptData = $result['data_keuangan'];
+            } else {
+                // n8n returned flat JSON directly
+                $receiptData = $result;
+            }
 
             // Cek apakah balasan masih berupa struktur raw Gemini API
             if (is_array($receiptData) && isset($receiptData['parts'][0]['text'])) {
@@ -99,8 +107,8 @@ class ScanStrukController extends Controller
         try {
             if (!empty($decodedData['items'])) {
                 foreach ($decodedData['items'] as $item) {
-                    $itemName = $item['nama'] ?? $item['name'] ?? 'Item Struk';
-                    $itemPrice = $item['harga'] ?? $item['price'] ?? 0;
+                    $itemName = $item['nama'] ?? $item['nama_produk'] ?? $item['name'] ?? 'Item Struk';
+                    $itemPrice = $item['harga'] ?? $item['total'] ?? $item['harga_satuan'] ?? $item['price'] ?? 0;
                     $itemCat = $item['kategori'] ?? $decodedData['category'] ?? 'belanja';
 
                     Transaction::create([
@@ -113,13 +121,13 @@ class ScanStrukController extends Controller
                     ]);
                 }
             } else {
-                $total = $decodedData['total'] ?? 0;
+                $total = $decodedData['total'] ?? $decodedData['total_belanja'] ?? 0;
                 Transaction::create([
-                    'judul' => $decodedData['store_name'] ?? 'Struk Belanja',
+                    'judul' => $decodedData['store_name'] ?? $decodedData['nama_toko'] ?? 'Struk Belanja',
                     'jumlah' => (float)$total,
                     'tipe' => 'pengeluaran',
                     'tanggal' => $tanggal,
-                    'kategori' => $decodedData['category'] ?? 'belanja',
+                    'kategori' => $decodedData['category'] ?? $decodedData['kategori'] ?? 'belanja',
                     'user_id' => $userId,
                 ]);
             }
