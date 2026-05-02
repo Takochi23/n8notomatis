@@ -46,7 +46,7 @@ class ScanStrukController extends Controller
             $result = $response->json();
 
             if (!$result) {
-                return back()->with('error', 'Response dari n8n tidak valid atau kosong.');
+                return back()->with('error', 'Response dari n8n tidak valid atau kosong. Raw Body: ' . substr($response->body(), 0, 500));
             }
 
             // Support multiple n8n response formats
