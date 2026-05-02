@@ -36,7 +36,7 @@ return [
     ],
 
     'n8n' => [
-        'webhook_url' => env('N8N_WEBHOOK_URL', 'https://raditnugroho.app.n8n.cloud/webhook-test/finance-receipt'),
+        'webhook_url' => env('N8N_WEBHOOK_URL', 'https://raditnugroho.app.n8n.cloud/webhook/finance'),
     ],
 
 ];
