@@ -31,7 +31,7 @@ class ScanStrukController extends Controller
             $response = Http::withoutVerifying()
                 ->timeout(60)
                 ->attach(
-                    'receipt_image',
+                    'data0',
                     file_get_contents($file->getRealPath()),
                     $file->getClientOriginalName()
                 )
