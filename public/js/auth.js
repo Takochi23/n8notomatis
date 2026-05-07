@@ -1,28 +1,77 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     const form = document.getElementById('loginForm');
-    if(form) {
-        form.addEventListener('submit', function() {
+
+    if(form){
+
+        form.addEventListener('submit', async function(e){
+
+            e.preventDefault();
+
             const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             const fullnameInput = document.getElementById('fullname');
-            
-            let displayName = '';
-            if (fullnameInput && fullnameInput.value.trim() !== '') {
-                // Jika dari halaman Register, ambil langsung dari input Nama Lengkap
-                displayName = fullnameInput.value.trim();
-            } else {
-                // Jika dari halaman Login, fallback pakai sisa localStorage yang ada, 
-                // atau pakai email prefix jika pertama kali login dari device baru.
-                const existingName = localStorage.getItem('takosaving_user');
-                if (existingName) {
-                    displayName = existingName;
-                } else {
-                    const name = email.split('@')[0];
-                    displayName = name.charAt(0).toUpperCase() + name.slice(1);
+
+            //Daftar
+            if(fullnameInput){
+
+                const fullname = fullnameInput.value;
+
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            fullname: fullname
+                        }
+                    }
+                });
+
+                if(error){
+                    alert(error.message);
+                    return;
                 }
+
+                // SIMPAN LOGIN
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('takosaving_user', fullname);
+                localStorage.setItem('takosaving_user_id', email);
+
+                alert("Register berhasil");
+
+                window.location.href = "/dashboard";
             }
-            
-            localStorage.setItem('takosaving_user', displayName);
-            localStorage.setItem('takosaving_user_id', email.toLowerCase().trim());
+
+            //Login 
+            else{
+
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if(error){
+                    alert(error.message);
+                    return;
+                }
+
+                // AMBIL NAMA
+                const displayName =
+                    localStorage.getItem('takosaving_user') ||
+                    email.split('@')[0];
+
+                // SIMPAN SESSION
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('takosaving_user', displayName);
+                localStorage.setItem('takosaving_user_id', email);
+
+                alert("Login berhasil");
+
+                window.location.href = "/dashboard";
+            }
+
         });
+
     }
+
 });

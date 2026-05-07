@@ -110,3 +110,22 @@
 <script src="{{ asset('js/dashboard.js') }}"></script>
 @endsection
 
+@section('scripts')
+
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if(!isLoggedIn){
+        window.location.href = "/login";
+    }
+
+});
+
+</script>
+
+<script src="{{ asset('js/dashboard.js') }}"></script>
+
+@endsection

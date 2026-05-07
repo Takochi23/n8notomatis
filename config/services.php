@@ -39,4 +39,8 @@ return [
         'webhook_url' => 'https://takochi.app.n8n.cloud/webhook/finance-receipt',
     ],
 
+    'supabase' => [
+        'url' => env('SUPABASE_URL'),
+        'key' => env('SUPABASE_ANON_KEY'),
+    ],
 ];
