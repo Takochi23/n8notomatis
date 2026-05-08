@@ -8,7 +8,7 @@ const DOM = {
     btnSimpan: document.getElementById('btnSimpan')
 };
 
-// Initialize formatting and current date
+// Inisialisasi format dan tanggal saat ini
 document.addEventListener('DOMContentLoaded', () => {
     const tanggalInput = document.getElementById('tanggal');
     if (tanggalInput) {
@@ -71,7 +71,7 @@ async function loadTransactions() {
 }
 
 function updateKategoriDropdown() {
-    // Logic for dynamic categories can be added here
+    // Logika untuk kategori dinamis dapat ditambahkan di sini
 }
 
 function renderTransactions() {

@@ -5,13 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TakoSaving - Kelola Keuangan dengan Cerdas</title>
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
 
@@ -25,7 +20,7 @@
 
         <div class="auth-buttons" id="authButtons">
 
-            <!-- DEFAULT BUTTON -->
+            <!-- Button Default -->
             <a href="{{ route('login') }}" class="welcome-btn welcome-btn-outline">
                 Log in
             </a>

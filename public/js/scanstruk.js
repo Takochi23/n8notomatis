@@ -1,3 +1,4 @@
+// mengisi otomatis input form dengan ID user
 document.addEventListener('DOMContentLoaded', function () {
     const uidInput = document.getElementById('scan_user_id');
     if (uidInput && typeof getUserId === 'function') {

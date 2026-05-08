@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                // SIMPAN LOGIN
+                // Simpan login
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('takosaving_user', fullname);
                 localStorage.setItem('takosaving_user_id', email);
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                // AMBIL NAMA
+                // Ambil nama lengkap dari metadata jika tersedia, atau gunakan bagian sebelum '@' dari email
                 const displayName =
                     localStorage.getItem('takosaving_user') ||
                     email.split('@')[0];

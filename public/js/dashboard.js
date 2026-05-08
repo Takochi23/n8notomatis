@@ -5,18 +5,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(resp.ok) {
             let data = await resp.json();
             
-            // Sort by recent
+            // Urutkan berdasarkan tanggal terbaru
             data.sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
 
             let totalIn = 0;
             let totalOut = 0;
 
-            // Today's date (start of day)
+            // Data hari ini (start of day)
             const now = new Date();
             const todayStr = now.toISOString().substring(0, 10);
             let todayExpense = 0;
 
-            // 30-day window for average calculation
+            // Data 30 hari terakhir
             const thirtyDaysAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30);
             let last30Expense = 0;
 
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('total-pemasukan').innerText = formatCurrency(totalIn);
             document.getElementById('total-pengeluaran').innerText = formatCurrency(totalOut);
 
-            // Spending status today
+            // Update status pengeluaran hari ini
             const todayEl = document.getElementById('total-hari-ini');
             const statusLabel = document.getElementById('spending-status-label');
             const statusIcon = document.getElementById('spending-status-icon');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (todayEl) todayEl.innerText = formatCurrency(todayExpense);
 
-            // Calculate daily average (30 days)
+            // Bandingkan dengan rata-rata 30 hari terakhir
             const dailyAvg = last30Expense / 30;
 
             if (statusLabel && statusIcon && statusFa) {
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
 
-            // Render latest 5 tx
+            // Tampilkan 5 transaksi terbaru
             renderRecentTable(data.slice(0, 5));
         }
     } catch(e) {

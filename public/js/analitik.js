@@ -1,7 +1,7 @@
 let txData = [];
 let catChart;
 let trChart;
-let currentDays = 7; // Default filter
+let currentDays = 7;
 
 const COLORS = [
     '#000000ff', // Black
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error fetching data for analytics:', e);
     }
 
-    // Time filter tab click handlers
+    // Event listener untuk filter waktu
     document.querySelectorAll('.time-filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.time-filter-btn').forEach(b => b.classList.remove('active'));
@@ -44,7 +44,7 @@ function formatCurrency(amount) {
 
 function getFilteredData() {
     const now = new Date();
-    // Start of today
+    // Mulai dari awal hari ini (00:00:00)
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     let startDate;
@@ -90,7 +90,7 @@ function processData() {
         }
     });
 
-    // Update Summary DOM
+    // Memperbarui summary
     const incomeEl = document.getElementById('summary-income');
     const expenseEl = document.getElementById('summary-expense');
     const balanceEl = document.getElementById('summary-balance');
@@ -165,7 +165,7 @@ function renderCategoryChart(categoryMap, totalExpense) {
 }
 
 function renderTrendChart(trendMap) {
-    // Fill in missing dates for the selected period
+    // Buat array tanggal dari startDate hingga hari ini
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     let startDate;

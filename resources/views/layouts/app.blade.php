@@ -10,14 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Global CSS -->
     <link rel="stylesheet" href="{{ asset('css/global.css') }}">
     @stack('styles')
 </head>
 <body>
 
-    <!-- Checkbox Hack for CSS-only Mobile Sidebar Toggle -->
+    <!-- Checkbox Hack for CSS Mobile Sidebar Toggle -->
     <input type="checkbox" id="mobile-menu-toggle">
     
     <!-- Overlay for mobile closing -->

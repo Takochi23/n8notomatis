@@ -1,4 +1,4 @@
-// Global helper: get current user ID (email)
+// Mendapatkan ID pengguna saat ini (email)
 function getUserId() {
     return localStorage.getItem('takosaving_user_id') || '';
 }
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(avatarEl) avatarEl.textContent = storedName.charAt(0).toUpperCase();
     }
 
-    // Redirect to login if no user_id (not logged in)
+    // Arahkan ke halaman login jika tidak ada user_id
     const isAuthPage = window.location.pathname === '/login' || window.location.pathname === '/register' || window.location.pathname === '/';
     if (!getUserId() && !isAuthPage) {
         window.location.href = '/login';

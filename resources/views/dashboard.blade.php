@@ -56,7 +56,7 @@
 </div>
 
 <div class="grid grid-cols-2 gap-6">
-    <!-- Recent Transactions -->
+    <!-- Transaksi -->
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Transaksi Terakhir</h2>
@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <!-- Quick Action / Menu -->
+    <!-- Menu -->
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Aksi Cepat</h2>

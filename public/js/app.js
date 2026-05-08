@@ -48,7 +48,7 @@ function calculateDashboardData(transactions) {
             }
         }
 
-        // Monthly data 
+        // Menghitung pemasukan/pengeluaran bulanan untuk 6 bulan terakhir 
         if(tx.tanggal) {
             const txDate = new Date(tx.tanggal);
             if(txDate.getFullYear() === now.getFullYear()) {
@@ -73,7 +73,7 @@ function calculateDashboardData(transactions) {
     if (incomeEl) incomeEl.textContent = formatRp(totalPemasukan);
     if (expenseEl) expenseEl.textContent = formatRp(totalPengeluaran);
 
-    // Prepare chart data
+    // Data untuk charts
     window.incomeData = Object.values(monthlyIncome);
     window.expenseData = Object.values(monthlyExpense);
     
