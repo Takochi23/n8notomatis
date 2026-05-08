@@ -89,7 +89,6 @@
                 </div>
             </div>
 
-            <!-- BUTTON -->
             <button type="submit" class="btn-submit">
 
                 @if($mode === 'login')
@@ -103,8 +102,6 @@
             </button>
 
         </form>
-
-        <!-- FOOTER -->
         <div class="auth-footer">
 
             @if($mode === 'login')
