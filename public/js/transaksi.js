@@ -193,26 +193,38 @@ async function handleAddTransaction(e) {
     }
 }
 
+// Fungsi untuk menghapus transaksi
 async function deleteTransaction(id) {
-    if (!confirm('Anda yakin ingin menghapus transaksi ini?')) return;
-    if (typeof CSRF_TOKEN === 'undefined') return;
+    // 1. Tanya user untuk konfirmasi
+    let yakin = confirm('Anda yakin ingin menghapus transaksi ini?');
+    
+    // Kalau user pilih 'Batal', hentikan fungsi
+    if (!yakin) {
+        return;
+    }
 
     try {
-        const response = await fetch(`/ajax/transactions/${id}?user_id=${encodeURIComponent(getUserId())}`, {
+        // 2. Kirim perintah hapus ke server (backend Laravel)
+        const response = await fetch('/ajax/transactions/' + id + '?user_id=' + getUserId(), {
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': CSRF_TOKEN
             }
         });
 
-        if (!response.ok) throw new Error('Gagal menghapus');
-
-        // Hapus dari state lokal
-        transactionsData = transactionsData.filter(tx => tx.id !== id);
-        renderTransactions();
+        // 3. Cek apakah server berhasil menghapus
+        if (response.ok) {
+            // Hapus data dari list lokal (PENTING: pakai != supaya tidak masalah tipe data Number & String)
+            transactionsData = transactionsData.filter(tx => tx.id != id);
+            renderTransactions();
+            alert('Transaksi berhasil dihapus');
+        } else {
+            alert('Gagal menghapus transaksi dari server.');
+        }
 
     } catch (error) {
-        console.error('Delete error:', error);
-        alert('Gagal menghapus transaksi.');
+        // 4. Tangkap jika ada error saat request ke server
+        console.error('Error saat hapus:', error);
+        alert('Terjadi kesalahan. Cek koneksi Anda.');
     }
 }
