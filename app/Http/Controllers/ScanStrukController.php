@@ -99,21 +99,7 @@ class ScanStrukController extends Controller
             return back()->with('error', 'Data tidak valid.');
         }
 
-        // Ambil tanggal dari hasil scan, default hari ini
         $tanggal = date('Y-m-d');
-        $rawTanggal = $decodedData['tanggal'] ?? '';
-
-        // Kalau tanggal ada dan bukan 'tidak terbaca', coba konversi
-        if ($rawTanggal != '' && $rawTanggal != 'tidak terbaca') {
-            // Ganti slash jadi dash
-            $rawTanggal = str_replace('/', '-', $rawTanggal);
-            $timestamp = strtotime($rawTanggal);
-
-            // Kalau berhasil di-parse, pakai tanggal itu
-            if ($timestamp) {
-                $tanggal = date('Y-m-d', $timestamp);
-            }
-        }
 
         try {
             if (!empty($decodedData['items'])) {
