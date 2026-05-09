@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    /**
-     * GET /ajax/transactions?user_id=xxx
-     */
     public function index(Request $request)
     {
         $query = Transaction::query();
@@ -23,9 +20,6 @@ class TransactionController extends Controller
         return response()->json($transactions);
     }
 
-    /**
-     * POST /ajax/transactions
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([

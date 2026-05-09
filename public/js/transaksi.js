@@ -42,7 +42,7 @@ function getCategoryIcon(type, category) {
     };
     return icons[category] || icons['Lainnya'];
 }
-
+    
 async function loadTransactions() {
     try {
         if (typeof getUserId !== 'function') return;
