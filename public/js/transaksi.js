@@ -193,18 +193,18 @@ async function handleAddTransaction(e) {
     }
 }
 
-// Fungsi untuk menghapus transaksi
+//Fungsi untuk menghapus transaksi
 async function deleteTransaction(id) {
-    // 1. Tanya user untuk konfirmasi
+    //anya user untuk konfirmasi
     let yakin = confirm('Anda yakin ingin menghapus transaksi ini?');
     
-    // Kalau user pilih 'Batal', hentikan fungsi
+    //Kalau user pilih 'Batal', hentikan fungsi
     if (!yakin) {
         return;
     }
 
     try {
-        // 2. Kirim perintah hapus ke server (backend Laravel)
+        //Kirim perintah hapus ke server (backend Laravel)
         const response = await fetch('/ajax/transactions/' + id + '?user_id=' + getUserId(), {
             method: 'DELETE',
             headers: {
@@ -212,9 +212,9 @@ async function deleteTransaction(id) {
             }
         });
 
-        // 3. Cek apakah server berhasil menghapus
+        //Cek apakah server berhasil menghapus
         if (response.ok) {
-            // Hapus data dari list lokal (PENTING: pakai != supaya tidak masalah tipe data Number & String)
+            //Hapus data dari list lokal (PENTING: pakai != supaya tidak masalah tipe data Number & String)
             transactionsData = transactionsData.filter(tx => tx.id != id);
             renderTransactions();
             alert('Transaksi berhasil dihapus');
@@ -223,7 +223,7 @@ async function deleteTransaction(id) {
         }
 
     } catch (error) {
-        // 4. Tangkap jika ada error saat request ke server
+        //Tangkap jika ada error saat request ke server
         console.error('Error saat hapus:', error);
         alert('Terjadi kesalahan. Cek koneksi Anda.');
     }
