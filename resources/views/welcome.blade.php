@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TakoSaving - Kelola Keuangan dengan Cerdas</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
@@ -47,9 +49,7 @@
                 ekstrak data dari struk belanja Anda.
             </p>
 
-            <a href="{{ route('register') }}"
-               class="welcome-btn welcome-btn-black hero-cta"
-               id="heroButton">
+            <a href="{{ route('register') }}" class="welcome-btn welcome-btn-black hero-cta" id="heroButton">
 
                 Mulai Sekarang - Gratis
 
@@ -114,7 +114,7 @@
             const heroButton = document.getElementById('heroButton');
 
             // JIKA SUDAH LOGIN
-            if(user){
+            if (user) {
 
                 authButtons.innerHTML = `
                     <a href="/dashboard" class="welcome-btn welcome-btn-black">
@@ -135,4 +135,5 @@
     </script>
 
 </body>
+
 </html>

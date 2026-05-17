@@ -47,7 +47,12 @@ async function loadTransactions() {
     try {
         if (typeof getUserId !== 'function') return;
         const currentUserId = getUserId();
-        const response = await fetch(`/ajax/transactions?user_id=${encodeURIComponent(currentUserId)}`);
+        const timestamp = new Date().getTime();
+        const response = await fetch(`/ajax/transactions?user_id=${encodeURIComponent(currentUserId)}&_t=${timestamp}`, {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
         if (!response.ok) throw new Error('Gagal mengambil data dari API');
         
         transactionsData = await response.json();
@@ -162,6 +167,7 @@ async function handleAddTransaction(e) {
         const response = await fetch('/ajax/transactions', {
             method: 'POST',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': CSRF_TOKEN
             },
@@ -205,9 +211,10 @@ async function deleteTransaction(id) {
 
     try {
         //Kirim perintah hapus ke server (backend Laravel)
-        const response = await fetch('/ajax/transactions/' + id + '?user_id=' + getUserId(), {
+        const response = await fetch('/ajax/transactions/' + id + '?user_id=' + encodeURIComponent(getUserId()), {
             method: 'DELETE',
             headers: {
+                'Accept': 'application/json',
                 'X-CSRF-TOKEN': CSRF_TOKEN
             }
         });
