@@ -539,7 +539,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     /* CSS Checkbox Hack for Mobile Menu */
-    #mobile-menu-toggle:checked ~ .sidebar {
+    #mobile-menu-toggle:checked ~ .app-container .sidebar {
         transform: translateX(0);
     }
     
