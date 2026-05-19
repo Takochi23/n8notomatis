@@ -36,7 +36,7 @@
     </div>
 
     <!-- Kolom Hasil -->
-    <div class="card">
+    <div class="card" id="hasil-scan">
         <div class="card-header">
             <h2 class="card-title"><i class="fa-solid fa-clipboard-list text-muted"></i> Hasil Scan</h2>
         </div>
@@ -124,5 +124,17 @@
 
 @section('scripts')
 <script src="{{ asset('js/scanstruk.js') }}"></script>
+@if(session('scan_result'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var hasil = document.getElementById('hasil-scan');
+        if (hasil && window.innerWidth <= 768) {
+            setTimeout(function() {
+                hasil.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+    });
+</script>
+@endif
 @endsection
 
