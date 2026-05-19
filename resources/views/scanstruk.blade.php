@@ -5,6 +5,7 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/scanstruk.css') }}">
+<link rel="stylesheet" href="{{ asset('css/scanstruk-mobile.css') }}">
 @endpush
 
 @section('content')
