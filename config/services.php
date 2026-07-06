@@ -36,7 +36,7 @@ return [
     ],
 
     'n8n' => [
-        'webhook_url' => 'https://dimsumoil.app.n8n.cloud/webhook/finance-reciept',
+        'webhook_url' => 'https://chilieoil.app.n8n.cloud/webhook/finance-receipt',
     ],
 
     'supabase' => [
