@@ -210,12 +210,17 @@ async function deleteTransaction(id) {
     }
 
     try {
+        // Ambil CSRF token (dari variabel blade, atau dari meta tag sebagai fallback)
+        const csrfToken = typeof CSRF_TOKEN !== 'undefined' 
+            ? CSRF_TOKEN 
+            : document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
         //Kirim perintah hapus ke server (backend Laravel)
         const response = await fetch('/ajax/transactions/' + id + '?user_id=' + encodeURIComponent(getUserId()), {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
-                'X-CSRF-TOKEN': CSRF_TOKEN
+                'X-CSRF-TOKEN': csrfToken
             }
         });
 
@@ -226,7 +231,9 @@ async function deleteTransaction(id) {
             renderTransactions();
             alert('Transaksi berhasil dihapus');
         } else {
-            alert('Gagal menghapus transaksi dari server.');
+            const errorText = await response.text();
+            console.error('Delete failed. Status:', response.status, 'Response:', errorText);
+            alert('Gagal menghapus transaksi. Status: ' + response.status);
         }
 
     } catch (error) {

@@ -8,37 +8,47 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Urutkan berdasarkan tanggal terbaru
             data.sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
 
-            let totalIn = 0;
-            let totalOut = 0;
+            // Pemasukan & Pengeluaran bulan ini saja
+            let monthlyIn = 0;
+            let monthlyOut = 0;
+
+            // Saldo = semua waktu
+            let allTimeIn = 0;
+            let allTimeOut = 0;
 
             // Data hari ini (start of day)
             const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
             const todayStr = now.toISOString().substring(0, 10);
             let todayExpense = 0;
 
-            // Data 30 hari terakhir
-            const thirtyDaysAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30);
+            // Data 30 hari terakhir (untuk rata-rata harian)
+            const thirtyDaysAgo = new Date(currentYear, currentMonth, now.getDate() - 30);
             let last30Expense = 0;
 
             data.forEach(tx => {
                 const amt = parseFloat(tx.jumlah);
                 const txDate = new Date(tx.tanggal);
                 const txDateStr = tx.tanggal.substring(0, 10);
+                const isCurrentMonth = txDate.getMonth() === currentMonth && txDate.getFullYear() === currentYear;
 
                 if(tx.tipe === 'pengeluaran') {
-                    totalOut += amt;
+                    allTimeOut += amt;
+                    if (isCurrentMonth) monthlyOut += amt;
                     if (txDateStr === todayStr) todayExpense += amt;
                     if (txDate >= thirtyDaysAgo) last30Expense += amt;
                 } else {
-                    totalIn += amt;
+                    allTimeIn += amt;
+                    if (isCurrentMonth) monthlyIn += amt;
                 }
             });
 
-            const saldo = totalIn - totalOut;
+            const saldo = allTimeIn - allTimeOut;
 
             document.getElementById('total-saldo').innerText = formatCurrency(saldo);
-            document.getElementById('total-pemasukan').innerText = formatCurrency(totalIn);
-            document.getElementById('total-pengeluaran').innerText = formatCurrency(totalOut);
+            document.getElementById('total-pemasukan').innerText = formatCurrency(monthlyIn);
+            document.getElementById('total-pengeluaran').innerText = formatCurrency(monthlyOut);
 
             // Update status pengeluaran hari ini
             const todayEl = document.getElementById('total-hari-ini');

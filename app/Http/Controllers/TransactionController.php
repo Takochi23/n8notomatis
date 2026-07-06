@@ -38,13 +38,19 @@ class TransactionController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $transaction = Transaction::findOrFail($id);
-        if ($request->has('user_id') && $transaction->user_id !== $request->user_id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+        try {
+            $transaction = Transaction::findOrFail($id);
+            $userId = $request->query('user_id', $request->input('user_id'));
+
+            if ($userId && $transaction->user_id != $userId) {
+                return response()->json(['message' => 'Unauthorized'], 403);
+            }
+
+            $transaction->delete();
+
+            return response()->json(['message' => 'Deleted'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
         }
-
-        $transaction->delete();
-
-        return response()->json(['message' => 'Deleted'], 200);
     }
 }
